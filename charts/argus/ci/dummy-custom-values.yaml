@@ -170,9 +170,7 @@ rlpolicy:
       hpa: 10
 
 collectorset-controller:
-  
   ## REQUIRED VALUES
-  
   # The LogicMonitor API key ID.
   accessID: "dummy"
   # The LogicMonitor API key.
@@ -181,9 +179,7 @@ collectorset-controller:
   account: "dummy"
   # To enable verbose logging at debug level.
   debug: false
-  
   ## OPTIONAL VALUES
-  
   # Enable RBAC. If your cluster does not have RBAC enabled, this value should be set to false.
   enableRBAC: true
   # The public etcd discovery token used to add etcd hosts to the cluster device group.
