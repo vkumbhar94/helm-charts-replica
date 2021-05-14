@@ -16,6 +16,9 @@ deleteDevices: true
 disableAlerting: false
 
 ## OPTIONAL VALUES
+# this prop is just for CI pipeline to test chart - production requires this to be enabled all the time
+collectorset:
+  enabled: true
 
 # Enable RBAC. If your cluster does not have RBAC enabled, this value should be set to false.
 enableRBAC: true
