@@ -10,4 +10,40 @@ spec:
     plural: collectorsets
     singular: collectorset
   scope: Namespaced
-  version: v1alpha1
+  versions:
+    - name: v1alpha1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      # One and only one version must be marked as the storage version.
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                imageRepository:
+                  type: string
+                imageTag:
+                  type: string
+                imagePullPolicy:
+                  type: string
+                replicas:
+                  type: integer
+                size:
+                  type: string
+                clusterName:
+                  type: string
+                groupID:
+                  type: integer
+                escalationChainID:
+                  type: integer
+                collectorVersion:
+                  type: integer
+                useEA:
+                  type: boolean
+                proxyURL:
+                  type: string
+                secretName:
+                  type: string
