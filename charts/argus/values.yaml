@@ -7,7 +7,7 @@ accessKey: ""
 # The LogicMonitor account name.
 account: ""
 # A unique name given to the cluster's device group.
-clusterName: ""
+clusterName: "dummy"
 # To enable verbose logging at debug level.
 debug: false
 # On a delete event, either delete from LogicMonitor or move the device to the `_delted` device group.
