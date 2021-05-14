@@ -97,7 +97,7 @@ collector:
   # The number of collectors to create and use with Argus.
   replicas: 1
   # The collector size to install. Can be nano, small, medium, or large.
-  size: ""
+  size: "nano"
   # The image repository of the [Collector](https://hub.docker.com/r/logicmonitor/collector) container.
   imageRepository: logicmonitor/collector
   # The image tag of the [Collector](https://hub.docker.com/r/logicmonitor/collector/tags) container.
