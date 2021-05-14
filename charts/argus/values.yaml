@@ -77,7 +77,6 @@ device_group_props:
   nodes: []
   etcd: []
   hpas: []
-    
 filters:
   # The filtered expression for Pod device type. Based on this parameter, Pods would be added/deleted for discovery on LM.
   pod: ""
@@ -95,7 +94,6 @@ openmetrics:
 
 collector:
   ## REQUIRED VALUES
-  
   # The number of collectors to create and use with Argus.
   replicas: 1
   # The collector size to install. Can be nano, small, medium, or large.
@@ -108,7 +106,6 @@ collector:
   imagePullPolicy: Always
   # The Secret resource name of the collectors.
   secretName: collector
-  
   ## OPTIONAL VALUES
 
   # The ID of the group of the collectors.
@@ -125,7 +122,6 @@ collector:
   proxyUser: ""
   # The Http/s proxy password of the collectors.
   proxyPass: ""
-    
   # annotations to add on collector statefulset
   annotations: {}
   # labels to add on collector statefulset
@@ -139,7 +135,6 @@ collector:
         tolerations: []
         # The priority class name for Pod priority of the collector. If this parameter is set then user must have PriorityClass resource created otherwise Pod will be rejected.
         priorityClassName: ""
-        
 # rlpolicy defines the rate at which argus will send requests to Logicmonitor portal in order to avoid rate limit thresholds
 rlpolicy:
   device:
