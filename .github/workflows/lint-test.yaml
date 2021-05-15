@@ -39,5 +39,11 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml
+        run: ct install --config ct.yaml --excluded-charts argus
+
+      - name: Run Argus chart testing
+        run: |
+          kubectl apply -f collectorset.yaml
+          ct install --config ct.yaml argus
+          kubectl delete -f collectorset.yaml
 
