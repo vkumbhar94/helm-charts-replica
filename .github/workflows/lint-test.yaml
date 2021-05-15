@@ -44,6 +44,6 @@ jobs:
       - name: Run Argus chart testing
         run: |
           kubectl apply -f collectorset.yaml
-          ct install --config ct.yaml argus
+          ct install --config ct.yaml --charts argus
           kubectl delete -f collectorset.yaml
 
