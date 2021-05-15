@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   argus:
   - apiVersion: v2
+    created: "2021-05-15T17:39:41.749463814Z"
+    description: Automated Kubernetes monitoring
+    digest: 8745ad3d3d77539d2a01fb01cbb864c509f8fb49da3ea7e6e3e9e7c5327da839
+    icon: https://logicmonitor.github.io/k8s-helm-charts/lm_logo.png
+    kubeVersion: '>= 1.14.0-0'
+    maintainers:
+    - email: argus@logicmonitor.com
+      name: LogicMonitor
+    name: argus
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/argus-0.21.0-devel/argus-0.21.0-devel.tgz
+    version: 0.21.0-devel
+  - apiVersion: v2
     created: "2021-05-14T17:40:20.603866374Z"
     dependencies:
     - name: collectorset-controller
@@ -37,6 +50,19 @@ entries:
     version: 0.19.0-devel
   collectorset-controller:
   - apiVersion: v2
+    created: "2021-05-15T17:39:41.856515687Z"
+    description: Automated collector management
+    digest: 79c44d9405360e237b9de511a9b6977d4daa15f8cc76271714a14564a97a801d
+    icon: https://logicmonitor.github.io/k8s-helm-charts/lm_logo.png
+    kubeVersion: '>= 1.14.0-0'
+    maintainers:
+    - email: argus@logicmonitor.com
+      name: LogicMonitor
+    name: collectorset-controller
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/collectorset-controller-0.14.0-devel/collectorset-controller-0.14.0-devel.tgz
+    version: 0.14.0-devel
+  - apiVersion: v2
     created: "2021-05-14T17:40:20.719382514Z"
     description: Automated collector management
     digest: 239a7ce48bcdb91cc93f8ab0000eba0f93596749baf163c055aab82e9ae48d65
@@ -62,4 +88,45 @@ entries:
     urls:
     - https://github.com/vkumbhar94/helm-charts-replica/releases/download/collectorset-controller-0.12.0-devel/collectorset-controller-0.12.0-devel.tgz
     version: 0.12.0-devel
-generated: "2021-05-14T17:40:20.719402014Z"
+  lm-logs:
+  - apiVersion: v2
+    created: "2021-05-15T17:39:41.954653647Z"
+    description: A Helm chart for sending k8s logs to Logic Monitor
+    digest: 80151aba2db2d158b19b84bf84324060f92c8b66e0ed367cd40c92fd1af27661
+    icon: https://logicmonitor.github.io/k8s-helm-charts/lm_logo.png
+    maintainers:
+    - email: lmlogs@logicmonitor.com
+      name: LogicMonitor
+    name: lm-logs
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/lm-logs-0.1.10/lm-logs-0.1.10.tgz
+    version: 0.1.10
+  lmotel:
+  - apiVersion: v2
+    created: "2021-05-15T17:39:42.083195796Z"
+    description: Automated Kubernetes lmotel deployement
+    digest: b639e40abea34e3de55fcfdc105e15f5c3a40d7c6f4166973e5a14397b024c9a
+    icon: https://logicmonitor.github.io/k8s-helm-charts/lm_logo.png
+    kubeVersion: '>= 1.14.0-0'
+    maintainers:
+    - email: lmotel@logicmonitor.com
+      name: LogicMonitor
+    name: lmotel
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/lmotel-1.0.0-devel/lmotel-1.0.0-devel.tgz
+    version: 1.0.0-devel
+  releasemanager:
+  - apiVersion: v1
+    created: "2021-05-15T17:39:42.17468917Z"
+    description: Release Manager provides a long-running application that will periodically
+      poll for releases in your cluster.
+    digest: 4e6b7ebd4be20fb99149f1bd6d8dc6bb74f1e5e2c5d33c40295ad2489efe2c78
+    icon: https://logicmonitor.github.io/k8s-helm-charts/lm_logo.png
+    maintainers:
+    - email: techops@logicmonitor.com
+      name: LogicMonitor
+    name: releasemanager
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/releasemanager-0.2.0/releasemanager-0.2.0.tgz
+    version: 0.2.0
+generated: "2021-05-15T17:39:42.17473117Z"
