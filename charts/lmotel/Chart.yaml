@@ -1,5 +1,5 @@
 apiVersion: v2
-description: Automated Kubernetes lmotel deployement 
+description: Automated Kubernetes lmotel deployement
 name: lmotel
 version: 1.0.0-devel
 # TODO: Testing pending from version 1.14 to 1.18

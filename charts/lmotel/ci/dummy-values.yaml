@@ -5,9 +5,9 @@
 replicaCount: 1
 
 lm:
-  account: ""
-  bearer_token: ""
-  otel_name: ""
+  account: "dummy"
+  bearer_token: "dummy"
+  otel_name: "dummy"
 
 image:
   # The image respository of the [lmotel](https://hub.docker.com/r/logicmonitor/lmotel) container.

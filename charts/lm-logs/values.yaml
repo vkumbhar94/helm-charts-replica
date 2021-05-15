@@ -19,5 +19,4 @@ resources:
 nodeSelector: []
 affinity: []
 tolerations:
- - operator: Exists
-
+  - operator: Exists

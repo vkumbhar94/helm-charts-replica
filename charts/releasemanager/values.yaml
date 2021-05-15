@@ -25,9 +25,9 @@ verbose: false
 ## Release Manager daemon configuration options
 ##
 daemon:
-    ## Specify, in seconds, how frequently the daemon should export the current state (default 30)
-    ##
-    pollingInterval: 30
+  ## Specify, in seconds, how frequently the daemon should export the current state (default 30)
+  ##
+  pollingInterval: 30
 
 ## Backend configuration options
 ##
