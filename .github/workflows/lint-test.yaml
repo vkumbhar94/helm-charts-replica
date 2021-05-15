@@ -38,10 +38,10 @@ jobs:
         uses: helm/kind-action@v1.0.0
         if: steps.list-changed.outputs.changed == 'true'
 
-      - name: Run chart-testing (install)
+      - name: Run chart-testing (install) - except argus
         run: ct install --config ct.yaml --excluded-charts argus
 
-      - name: Run Argus chart testing
+      - name: Run chart-testing (install) - only argus
         run: |
           kubectl apply -f collectorset.yaml
           ct install --config ct.yaml --charts charts/argus
