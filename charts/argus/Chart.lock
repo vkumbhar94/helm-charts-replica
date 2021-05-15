@@ -1,6 +1,0 @@
-dependencies:
-- name: collectorset-controller
-  repository: file://../collectorset-controller
-  version: 0.14.0-devel
-digest: sha256:29450c4cec4f9536669e6cf65ef59f76ed2ff6d2d35f5949e1f720e642ee97eb
-generated: "2021-05-15T16:19:58.568088+05:30"
