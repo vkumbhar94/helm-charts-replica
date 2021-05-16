@@ -1,3 +1,4 @@
+name: Add chart configuration file
 on:
   release:
     types: [created]
