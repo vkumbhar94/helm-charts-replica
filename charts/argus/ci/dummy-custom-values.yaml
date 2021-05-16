@@ -1,13 +1,13 @@
 ## REQUIRED VALUES
 
 # The LogicMonitor API key ID.
-accessID: ""
+accessID: "dummy"
 # The LogicMonitor API key.
-accessKey: ""
+accessKey: "dummy"
 # The LogicMonitor account name.
-account: ""
+account: "dummy"
 # A unique name given to the cluster's device group.
-clusterName: ""
+clusterName: "dummy"
 # To enable verbose logging at debug level.
 debug: false
 # On a delete event, either delete from LogicMonitor or move the device to the `_delted` device group.
@@ -16,7 +16,6 @@ deleteDevices: true
 disableAlerting: false
 
 ## OPTIONAL VALUES
-# this prop is just for CI pipeline to test chart - production requires this to be enabled all the time
 
 # Enable RBAC. If your cluster does not have RBAC enabled, this value should be set to false.
 enableRBAC: true
@@ -98,7 +97,7 @@ collector:
   # The number of collectors to create and use with Argus.
   replicas: 1
   # The collector size to install. Can be nano, small, medium, or large.
-  size: ""
+  size: "nano"
   # The image repository of the [Collector](https://hub.docker.com/r/logicmonitor/collector) container.
   imageRepository: logicmonitor/collector
   # The image tag of the [Collector](https://hub.docker.com/r/logicmonitor/collector/tags) container.
