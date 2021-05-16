@@ -4,7 +4,7 @@ on:
 
 jobs:
   build:
-    name: Build release binary
+    name: Add release chart configuration file
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
