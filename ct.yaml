@@ -1,3 +1,4 @@
 target-branch: main
 chart-repos:
   - prometheus=https://prometheus-community.github.io/helm-charts
+  - vk94=https://vkumbhar94.github.io/helm-charts-replica
