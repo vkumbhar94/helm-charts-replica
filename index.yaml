@@ -149,6 +149,37 @@ entries:
     urls:
     - https://github.com/vkumbhar94/helm-charts-replica/releases/download/collectorset-controller-0.12.0-devel/collectorset-controller-0.12.0-devel.tgz
     version: 0.12.0-devel
+  lm-container:
+  - apiVersion: v2
+    created: "2022-04-14T11:37:05.959057399Z"
+    dependencies:
+    - condition: argus.enabled
+      name: argus
+      repository: https://vkumbhar94.github.io/helm-charts-replica
+      tags:
+      - logicmonitor
+      - argus
+      - monitoring
+      version: 2.0.0-rc1
+    - condition: collectorset-controller.enabled
+      name: collectorset-controller
+      repository: https://vkumbhar94.github.io/helm-charts-replica
+      tags:
+      - logicmonitor
+      - collectorset-controller
+      - monitoring
+      version: 1.0.0-rc1
+    description: A Helm chart for Logicmonitor's Kubernetes moniotoring solutions
+    digest: 266d39acfab194625ffe0aa4895e629b0ba5544ada786772a6ea42516db4db0e
+    icon: https://vkumbhar94.github.io/helm-charts-replica/lm_logo.png
+    maintainers:
+    - email: argus@logicmonitor.com
+      name: LogicMonitor
+    name: lm-container
+    type: application
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/lm-container-1.0.0-rc1/lm-container-1.0.0-rc1.tgz
+    version: 1.0.0-rc1
   lm-logs:
   - apiVersion: v2
     created: "2021-05-15T17:39:41.954653647Z"
@@ -190,4 +221,4 @@ entries:
     urls:
     - https://github.com/vkumbhar94/helm-charts-replica/releases/download/releasemanager-0.2.0/releasemanager-0.2.0.tgz
     version: 0.2.0
-generated: "2022-04-14T10:28:13.924209462Z"
+generated: "2022-04-14T11:37:05.9590897Z"
