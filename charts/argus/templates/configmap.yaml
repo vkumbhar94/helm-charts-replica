@@ -1,54 +1,19 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "argus.fullname" . }}
+  namespace: {{ template "argus.namespace" . }}
   labels:
-    chart: "argus"
-{{- if .Values.labels}}
-{{ toYaml .Values.labels| indent 4 }}
-{{- end }}
+    logicmonitor.com/version: v3
+    {{- include "argus.labels" . | nindent 4 }}
   annotations:
     helm-chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     helm-revision: "{{ .Release.Revision }}"
     ## keep value false as string, spinnaker's limitation, otherwise spinnaker fails to cast boolean to string
     strategy.spinnaker.io/versioned: "false"
-{{- if .Values.annotations }}
-{{ toYaml .Values.annotations | indent 4 }}
-{{- end }}
+    {{- include "argus.annotations" . | nindent 4 }}
 data:
   config.yaml: |
-    address: collectorset-controller:50000
-    cluster_name: {{ required "A valid .Values.clusterName entry is required!" .Values.clusterName }}
-    debug: {{ required "A valid .Values.debug entry is required!" .Values.debug }}
-    delete_devices: {{ required "A valid .Values.deleteDevices entry is required!" .Values.deleteDevices }}
-    disable_alerting: {{ required "A valid .Values.disableAlerting entry is required!" .Values.disableAlerting }}
-    etcd_discovery_token: {{ .Values.etcdDiscoveryToken }}
-    cluster_group_id: {{ .Values.clusterGroupID }}
-    {{- if .Values.proxyURL }}
-    proxy_url: {{ .Values.proxyURL }}
-    {{- end }}
-    displayName_include_namespace: {{ .Values.fullDisplayNameIncludeNamespace }}
-    displayName_include_clustername: {{ .Values.fullDisplayNameIncludeClusterName }}
-    ignore_ssl: {{ .Values.ignore_ssl }}
-    app_intervals:
-{{ toYaml .Values.app_intervals | indent 6}}
-      periodic_sync_min_interval: 10m
-      periodic_delete_min_interval: 10m
-      cache_sync_min_interval: 5m
-    device_group_props:
-{{ toYaml .Values.device_group_props | indent 6}}
-{{- if .Values.openmetrics }}
-    openmetrics:
-{{ toYaml .Values.openmetrics | indent 6}}
-{{- end }}
-  rl-policy.yaml: |
-{{- if .Values.rlpolicy }}
-{{ toYaml .Values.rlpolicy | indent 4}}
-{{- end }}
+    {{- include "argus-config" . | fromYaml | toYaml | nindent 4 }}
   filters-config.yaml: |
-    filter:
-      pods: {{ .Values.filters.pod }}
-      services: {{ .Values.filters.service }}
-      deployments: {{ .Values.filters.deployment }}
-      nodes: {{ .Values.filters.node }}
-      horizontalpodautoscalers: {{ .Values.filters.hpa}}
+    filters: {{- toYaml .Values.filters | nindent 6 }}
