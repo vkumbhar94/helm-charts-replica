@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   argus:
   - apiVersion: v2
+    appVersion: v8.0.0-rc1
+    created: "2022-04-14T10:28:13.767241664Z"
+    dependencies:
+    - condition: kube-state-metrics.enabled
+      name: kube-state-metrics
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 4.7.0
+    description: Automated Kubernetes monitoring
+    digest: 3aba228f54d5d8c8b54608375808ce8bd755c662e77a6d0eb121d5cd4548caab
+    home: https://logicmonitor.github.io/helm-charts
+    icon: https://logicmonitor.github.io/helm-charts/lm_logo.png
+    kubeVersion: '>= 1.14.0-0'
+    maintainers:
+    - email: argus@logicmonitor.com
+      name: LogicMonitor
+    name: argus
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/argus-2.0.0-rc1/argus-2.0.0-rc1.tgz
+    version: 2.0.0-rc1
+  - apiVersion: v2
     created: "2021-05-17T12:25:08.678930381Z"
     description: Automated Kubernetes monitoring
     digest: cb9e5c60d7b2561efea62ee96a8ef4b4e6ded8d864641a0f3ede9be65f8719ff
@@ -75,6 +95,21 @@ entries:
     - https://github.com/vkumbhar94/helm-charts-replica/releases/download/argus-0.19.0-devel/argus-0.19.0-devel.tgz
     version: 0.19.0-devel
   collectorset-controller:
+  - apiVersion: v2
+    appVersion: v4.0.0-rc1
+    created: "2022-04-14T10:28:13.924160861Z"
+    description: Automated collector management
+    digest: 4b3f7b6831d1ab954fa55c7363a01f08c7a93dd086ae829cfe133484c078c18d
+    home: https://logicmonitor.github.io/helm-charts
+    icon: https://logicmonitor.github.io/helm-charts/lm_logo.png
+    kubeVersion: '>= 1.14.0-0'
+    maintainers:
+    - email: argus@logicmonitor.com
+      name: LogicMonitor
+    name: collectorset-controller
+    urls:
+    - https://github.com/vkumbhar94/helm-charts-replica/releases/download/collectorset-controller-1.0.0-rc1/collectorset-controller-1.0.0-rc1.tgz
+    version: 1.0.0-rc1
   - apiVersion: v2
     created: "2021-05-15T17:39:41.856515687Z"
     description: Automated collector management
@@ -155,4 +190,4 @@ entries:
     urls:
     - https://github.com/vkumbhar94/helm-charts-replica/releases/download/releasemanager-0.2.0/releasemanager-0.2.0.tgz
     version: 0.2.0
-generated: "2021-05-17T12:25:08.678964381Z"
+generated: "2022-04-14T10:28:13.924209462Z"
