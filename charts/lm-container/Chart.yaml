@@ -13,7 +13,7 @@ dependencies:
     version: "2.0.0-rc1"
     repository: https://vkumbhar94.github.io/helm-charts-replica
     # uncomment to test umbrella chart in while developing
-    #repository: file://../argus
+    # repository: file://../argus
     condition: argus.enabled
     tags:
       - logicmonitor
@@ -24,7 +24,7 @@ dependencies:
     version: "1.0.0-rc1"
     repository: https://vkumbhar94.github.io/helm-charts-replica
     # uncomment to test umbrella chart in while developing
-    #repository: file://../collectorset-controller
+    # repository: file://../collectorset-controller
     condition: collectorset-controller.enabled
     tags:
       - logicmonitor
