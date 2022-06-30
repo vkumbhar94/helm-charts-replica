@@ -1,0 +1,342 @@
+<html>
+<head>
+    <style>
+        body {
+            font-size: 20.16px;
+            font-family: "Avenir", Helvetica, Arial, sans-serif;
+            color: #434343;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<link href="https://static-prod.logicmonitor.com/sbui133-1/commons/stylesheets2/startup.css?v=220429"
+      rel="stylesheet">
+<style
+        type="text/css">.selectorHeader {
+    padding: 5px 0 15px;
+    border-bottom: 1px solid silver;
+    font-weight: bold;
+}
+
+#pickerControls {
+    margin-top: 10px;
+}
+
+#pickerControls p {
+    margin: 5px 3px;
+}
+
+#pickerControls td {
+    padding: 5px 3px;
+}
+
+#pickerControls input {
+    display: initial;
+    width: auto;
+    padding-top: 0;
+    margin-right: 5px;
+}
+
+.pickerHelp {
+    margin-top: 15px;
+    font-style: italic;
+    color: gray;
+    font-size: small;
+}
+
+#pickerControls label {
+    color: white;
+}
+
+#resourceNameTitle {
+    color: aquamarine;
+    font-size: 28px;
+    padding: 0 0 10px 0;
+}
+</style>
+<div id="pickerControls">
+    <div id="resourceNameTitle">cisc*</div>
+    <label htmlFor="defaultResourceName">Resource:</label> <input id="defaultResourceName" maxLength="30"
+                                                                  onKeyUp="checkInput();"
+                                                                  placeholder="(resource name)" required="true"
+                                                                  size="20" type="text" value="cisc*">
+    <button className="lm-button small blue animate" id="updateResourceGoButton" onClick="validateForm();">Go
+    </button>
+</div>
+
+<div className="pickerHelp">Enter a resource name/pattern. You may use an asterisk as a wildcard (example:
+    "win*").
+</div>
+<script>
+    // (OPTIONAL) You can set values for the ID and key needed for the LogicMonitor REST API calls inside the
+    // quotes of the two lines below.This allows the API keys to not be as visibly exposed.If either value(ID or key ) is set as a dashboard token then it will override the value set here.
+    var apiID = "";
+    var apiKey = "";
+
+    const groupPrefix = "";
+    // ---
+
+    // Capture information from specific dashboard tokens we'll be using...
+
+    // Capture our API credentials from token...
+    var apiIDToken = "";
+    var apiKeyToken = "";
+    // If the token values weren't set then use the values hard-coded above in this script...
+    if (apiIDToken != "\#\#apiID\#\#") {
+        apiID = apiIDToken;
+    }
+    if (apiKeyToken != "\#\#apiKey\#\#") {
+        apiKey = apiKeyToken;
+    }
+
+    // (Part of this customization) Label we'll show instead of "*" if all resources are being shown...
+    var allDevicesLabel = "All devices"
+
+    // The names of the tokens we'll be updating...
+    const defaultResourceGroupTokenName = "defaultResourceGroup";
+    const defaultResourceNameTokenName = "defaultResourceName";
+    // const defaultInstanceTokenName = "defaultInstance"
+    // Capture the current values of the tokens...
+    // (Like any token inserted into the Text widget, LogicMonitor automatically inserts these token values as
+    // the page is being rendered so Javascript is able to pick them as if the values were there originally.If a token isn 't set then the variable' s value will be literally what 's shown below, including the double - hashtags. )
+    var defaultResourceGroupInitialValue = "*";
+    var defaultResourceNameInitialValue = "cisc*"
+    // var defaultInstanceInitialValue = "##defaultInstance##"
+    // var defaultDatasourceInitialValue = "##defaultDatasource##"
+    // var dynamicGroupParentID = "##dynamicGroupParentID##";
+    // var hideDynamicGroupDropdown = "##hideDynamicGroupDropdown##"
+    // var hideDynamicResourceDropdown = "##hideDynamicResourceDropdown##"
+    // var hideDynamicInstanceDropdown = "##hideDynamicInstanceDropdown##"
+    var defaultResourceNameToken = "cisc*";
+    // The 'dynamicGroupParentID' is an optional token the user can set to limit the group list to a specific
+    // parent.Use the root group(ID 1 ) if the token wasn 't set...
+    // if (isNaN(dynamicGroupParentID)) {
+    // 	dynamicGroupParentID = 1;
+    // }
+
+    // Prep variables to capture/set 'defaultResourceGroup' tokens...
+    var processGroupToken = false;
+    // Prep variables to capture/set 'defaultResourceName' tokens...
+    var processResourceToken = true;
+    // Prep variables to capture/set 'defaultInstance' tokens...
+    var processInstanceToken = false;
+
+    var defaultResourceName = "";
+    if (defaultResourceNameToken != "\#\#defaultResourceName\#\#") {
+        defaultResourceName = defaultResourceNameToken;
+        // document.getElementById("defaultResourceName").value = defaultResourceName;
+    }
+
+    // Regular expression used for testing if we were given a valid resource name...
+    const resourcePattern = /.+/;
+
+
+    // ---
+
+    // Capture information about the current dashboard for use in subsequent REST calls...
+    var hostName = parent.window.location.host;
+    var locationHash = parent.window.location.hash; // example result: "#dashboard=21"
+    var dashboardID = locationHash.replace("#dashboard=", "");
+
+    // Encoder to convert strings to Uint8Array for API signatures...
+    var enc = new TextEncoder("utf-8");
+
+    // If showing all resources, change our resource title to something more friendly than "*"...
+    if (defaultResourceNameInitialValue == "*") {
+        document.querySelector("#resourceNameTitle").innerText = allDevicesLabel
+    }
+
+    checkInput();
+
+    // ----- FUNCTIONS
+
+    // Enable/disable the "Go" button if our resource name isn't valid...
+    function checkInput() {
+        var goButton = document.getElementById("updateResourceGoButton");
+        var resourceFieldVal = document.getElementById("defaultResourceName").value.trim();
+
+        // if (resourceFieldVal.length > 0 && Number.isInteger(Number(resourceFieldVal))) {
+        if (resourceFieldVal.length > 0 && resourceFieldVal.match(resourcePattern)) {
+            goButton.disabled = false;
+        } else {
+            goButton.disabled = true;
+        }
+    }
+
+    // Validate that we have a value...
+    function validateForm() {
+        var resourceFieldVal = document.getElementById("defaultResourceName").value;
+
+        // if (resourceFieldVal.length > 0 && Number.isInteger(Number(resourceFieldVal))) {
+        if (resourceFieldVal.length > 0 && resourceFieldVal.match(resourcePattern)) {
+            // A value was entered, so let's update the dashboard...
+            defaultResourceName = resourceFieldVal;
+            console.log("Validated... updating....")
+            updateDashboard();
+        }
+    }
+
+    // Function processing status of Fetch calls...
+    function status(response) {
+        if (response.status >= 200 && response.status < 300) {
+            return Promise.resolve(response);
+        } else {
+            return Promise.reject(new Error(response.statusText));
+        }
+    }
+
+
+    // Pre-processor for JSON responses from Fetch calls...
+    function json(response) {
+        return response.json();
+    }
+
+
+    function updateDashboard() {
+        // Construct our new 'defaultResourceGroup' value...
+        var newResourceGroup = groupPrefix + defaultResourceName;
+
+        // Request Details...
+        var httpVerb = "GET";
+        var epoch = (new Date).getTime();
+        var resourcePath = "/dashboard/dashboards/" + dashboardID;
+        var queryParams = "";
+
+        // Construct signature...
+        var requestVars = httpVerb + epoch + resourcePath;
+
+        // Prep our URL & query for the REST call...
+        var apiURL = "https://" + hostName + "/santaba/rest" + resourcePath + queryParams;
+
+        // Create our API signature...
+        window.crypto.subtle.importKey(
+            "raw", // raw format of the key - should be Uint8Array
+            enc.encode(apiKey),
+            { // algorithm details
+                name: "HMAC",
+                hash: {name: "SHA-256"}
+            },
+            false, // export = false
+            ["sign", "verify"] // what this key can do
+        ).then(key => {
+            window.crypto.subtle.sign(
+                "HMAC",
+                key,
+                enc.encode(requestVars)
+            ).then(signature => {
+                var b = new Uint8Array(signature);
+                var hmacX = Array.prototype.map.call(b, x => ('00' + x.toString(16)).slice(-2)).join("");
+                var signature = btoa(hmacX);
+
+                // Construct auth header...
+                var auth = "LMv1 " + apiID + ":" + signature + ":" + epoch;
+
+                // We now have what's needed for LMv1 API Token authentication. Let's make our API call...
+
+                // Call the API to get the current dashboard definition...
+                fetch(apiURL, {
+                    method: httpVerb,
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        'Authorization': auth
+                    },
+                })
+                    .then(status)
+                    .then(json)
+                    .then(function (data) {
+                        console.log('Get Dashboard request succeeded with JSON response', data)
+
+                        // Loop through the dashboard's tokens looking for the one(s) we want to change...
+                        data.data.widgetTokens.forEach(thisToken => {
+                            // Resource group...
+                            if (processGroupToken && thisToken.name == defaultResourceGroupTokenName) {
+                                thisToken.value = newResourceGroup;
+                            }
+                            // Resource name...
+                            if (thisToken.name == defaultResourceNameTokenName) {
+                                thisToken.value = defaultResourceName;
+                            }
+                        })
+
+                        // Build the JSON body we'll be posting to update the dashboard data...
+                        var dashData = data.data;
+                        console.log("dashData = " + dashData)
+                        postBody = JSON.stringify({
+                            "groupId": dashData.groupId,
+                            "widgetsConfig": dashData.widgetsConfig,
+                            "name": dashData.name,
+                            "description": dashData.description,
+                            "sharable": dashData.sharable,
+                            "owner": dashData.owner,
+                            "groupName": dashData.groupName,
+                            "useDynamicWidget": dashData.useDynamicWidget,
+                            "widgetTokens": dashData.widgetTokens
+                        });
+
+                        // Prep details for the call to update the dashboard...
+                        httpVerb = "PUT";
+                        var epoch = (new Date).getTime();
+                        var resourcePath = "/dashboard/dashboards/" + dashboardID;
+                        var queryParams = "";
+
+                        // Construct signature...
+                        var requestVars = httpVerb + epoch + postBody + resourcePath;
+
+                        // Prep our URL & query for the REST call...
+                        var apiURL = "https://" + hostName + "/santaba/rest" + resourcePath + queryParams;
+
+                        // Create our API signature...
+                        window.crypto.subtle.importKey(
+                            "raw", // raw format of the key - should be Uint8Array
+                            enc.encode(apiKey),
+                            { // algorithm details
+                                name: "HMAC",
+                                hash: {name: "SHA-256"}
+                            },
+                            false, // export = false
+                            ["sign", "verify"] // what this key can do
+                        ).then(key => {
+                            window.crypto.subtle.sign(
+                                "HMAC",
+                                key,
+                                enc.encode(requestVars)
+                            ).then(signature => {
+                                var b = new Uint8Array(signature);
+                                var hmacX = Array.prototype.map.call(b, x => ('00' + x.toString(16)).slice(-2)).join("");
+                                var signature = btoa(hmacX);
+
+                                // Construct auth header...
+                                var auth = "LMv1 " + apiID + ":" + signature + ":" + epoch;
+
+                                // We now have what's needed for LMv1 API Token authentication. Let's make our API call...
+
+                                // Update the dashboard definition via API...
+                                fetch(apiURL, {
+                                    method: httpVerb,
+                                    headers: {
+                                        'Content-Type': 'application/json; charset=UTF-8',
+                                        'Authorization': auth
+                                    },
+                                    body: postBody
+                                })
+                                    .then(json)
+                                    .then(function (data) {
+                                        console.log('Update Dashboard request succeeded with JSON response', data)
+
+                                        // Reload the page to reflect the new token values...
+                                        parent.location.reload();
+                                    })
+                                    .catch(function (error) {
+                                        console.log('Request failed', error);
+                                    })
+                            })
+                        })
+                    })
+            })
+        })
+    }
+</script>
+</body>
+</html>
+
